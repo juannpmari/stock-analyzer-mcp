@@ -19,10 +19,10 @@ jobs:
     - uses: docker/login-action@v3
       with:
         registry: ghcr.io
-        username: ${{ github.actor }}
+        username: juannpmari
         password: ${{ secrets.GHCR_PAT }}
 
     - name: Build and push image with buildx
       run: |
-        docker buildx build --platform linux/amd64 --pull --rm -f 'dockerfile' -t 'ghcr.io/${{ github.actor }}/stockanalyzermcp:latest' '.' --push
+        docker buildx build --platform linux/amd64 --pull --rm -f 'dockerfile' -t 'ghcr.io/juannpmari/stockanalyzermcp:latest' '.' --push
 
