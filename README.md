@@ -19,7 +19,7 @@ Add the following configuration to mcp_config.json:
       "args": [
         "run",
         "-i",
-        "stockanalyzermcp:latest"
+        "ghcr.io/juannpmari/stockanalyzermcp"
       ]
     }
 ```
