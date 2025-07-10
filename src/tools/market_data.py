@@ -118,8 +118,8 @@ def get_historical_prices(ticker: str, start_date: str, end_date: str, interval:
 
         dates = pd.date_range(start=start_date, end=end_date, freq="D")
         return [
-            (str(date.date()), open, high, low, close, volume)
-            for date, open, high, low, close, volume in zip(
+            (str(date.date()), open_price, high, low, close, volume)
+            for date, open_price, high, low, close, volume in zip(
                 dates,
                 data["Open"],
                 data["High"],
