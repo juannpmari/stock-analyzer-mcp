@@ -3,7 +3,7 @@ name: Docker Build and Push
 on:
   push:
     branches:
-      - cd_test
+      - main
 
 jobs:
   build-and-push:
