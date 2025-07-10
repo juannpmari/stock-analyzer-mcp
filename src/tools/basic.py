@@ -54,23 +54,33 @@ def get_historical_prices(ticker: str, start_date: str, end_date: str) -> List[t
     - ticker (str): e.g. 'AAPL' or 'BTC-USD'
     - start_date (str): e.g. '2024-01-01'
     - end_date (str): e.g. '2024-06-01'
+    - interval (str): e.g. '1d', '1h', '1m'
 
     Returns:
-    - List of (date, closing_price) tuples
+    - List of (date, open, high, low, close, volume) tuples
+    - If the ticker is not found, returns an empty list
     """
     try:
-        data = yf.download(ticker, start=start_date, end=end_date, interval='1d', progress=False)
+        stock = yf.Ticker(ticker)
+        data = stock.history(start=start_date, end=end_date, interval=interval)
         if data.empty:
             return []
 
-        # Reset index to turn Date from index to column
         data = data.reset_index()
 
-        # Create the list of (date, close) tuples
-        dates = pd.date_range(start=start_date, end=end_date, freq='D')
-        return [(str(date.date()), close) for date, close in zip(dates, data['Close'][ticker])]
+        dates = pd.date_range(start=start_date, end=end_date, freq="D")
+        return [
+            (str(date.date()), open, high, low, close, volume)
+            for date, open, high, low, close, volume in zip(
+                dates,
+                data["Open"],
+                data["High"],
+                data["Low"],
+                data["Close"],
+                data["Volume"],
+            )
+        ]
 
-    
     except Exception as e:
         print(f"Error fetching data for {ticker}: {e}")
         return []
