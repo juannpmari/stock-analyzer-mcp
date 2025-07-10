@@ -4,7 +4,7 @@ from mcp.server.fastmcp import FastMCP
 
 analysis_mcp = FastMCP("Analysis")
 
-@analysis_mcp.tool
+@analysis_mcp.tool()
 def fetch_fundamentals(ticker_id: str) -> Dict[str, float]:
     """
     Fetches fundamental data for a given ticker.
@@ -32,7 +32,7 @@ def fetch_fundamentals(ticker_id: str) -> Dict[str, float]:
     except Exception as e:
         return {"error": str(e)}
 
-@analysis_mcp.tool
+@analysis_mcp.tool()
 def fetch_earnings_dates(ticker_id: str) -> dict:
     """
     Fetches upcoming earnings announcement dates for a given ticker.
@@ -61,7 +61,7 @@ def fetch_earnings_dates(ticker_id: str) -> dict:
 
 
 
-@analysis_mcp.tool
+@analysis_mcp.tool()
 def fetch_technical_indicators(ticker: str, start: str, end: str) -> Dict[str, float]:
     """
     Fetches technical indicators for a ticker using yfinance and pandas.

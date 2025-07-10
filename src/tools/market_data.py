@@ -7,7 +7,7 @@ from mcp.server.fastmcp import FastMCP
 market_data_mcp = FastMCP("Market Data")
 
 
-@market_data_mcp.tool   
+@market_data_mcp.tool()   
 def search_stock_tickers(ticker_query: str = "") -> Dict[str, str]:
     """Return up to 20 ticker names related to ticker_query. Use to retrieve tickers names for other resources.
     
@@ -33,7 +33,7 @@ def search_stock_tickers(ticker_query: str = "") -> Dict[str, str]:
         return {"error": str(e)}
 
 
-@market_data_mcp.tool
+@market_data_mcp.tool()
 def list_ticker_news(ticker: str, n_news: int = 10, hours_ago: int = 0) -> Dict[str, str]:
     """ Returns n_news news about a ticker from the last hours_ago hours. Use to get context to predict ticker evolution.
     
@@ -69,7 +69,7 @@ def list_ticker_news(ticker: str, n_news: int = 10, hours_ago: int = 0) -> Dict[
     except Exception as e:
         return {"error": str(e)}
 
-@market_data_mcp.tool
+@market_data_mcp.tool()
 def get_tickers_price(tickers: list[str]) -> Dict[str, float]:
     """
     Get the latest price for a list of tickers using yfinance.
@@ -93,7 +93,7 @@ def get_tickers_price(tickers: list[str]) -> Dict[str, float]:
     except Exception as e:
         return {"error": str(e)}
 
-@market_data_mcp.tool
+@market_data_mcp.tool()
 def get_historical_prices(ticker: str, start_date: str, end_date: str, interval: str = "1d") -> List[tuple]:
     """
     Fetches daily closing prices for a given ticker between start_date and end_date.
