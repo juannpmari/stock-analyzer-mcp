@@ -1,7 +1,7 @@
 from mcp.server.fastmcp import FastMCP
-from typing import Dict
+from typing import Dict, Union
 from tools import market_data, analysis
-from typing import List
+
 mcp = FastMCP("Market analyzer")
 
 
@@ -35,7 +35,7 @@ def list_ticker_news(
 
 
 @mcp.tool()
-def get_tickers_price(tickers: list[str]) -> Dict[str, float]:
+def get_tickers_price(tickers: list[str]) -> Dict[str, str]:
     """Returns the price of a list of tickers.
 
     Parameters:
@@ -50,7 +50,7 @@ def get_tickers_price(tickers: list[str]) -> Dict[str, float]:
 @mcp.tool()
 def get_historical_prices(
     ticker: str, start_date: str, end_date: str, interval: str = "1d"
-) -> List[tuple]:
+) -> Dict[str, Union[tuple, str]]:
     """
     Fetches daily closing prices for a given ticker between start_date and end_date.
 
@@ -67,9 +67,8 @@ def get_historical_prices(
     return market_data.get_historical_prices(ticker, start_date, end_date, interval)
 
 
-
 @mcp.tool()
-def fetch_fundamentals(ticker_id: str) -> Dict[str, float]:
+def fetch_fundamentals(ticker_id: str) -> Dict[str, str]:
     """
     Fetches fundamental data for a given ticker.
 
@@ -80,6 +79,7 @@ def fetch_fundamentals(ticker_id: str) -> Dict[str, float]:
     dict: Dictionary with Market Cap, PE Ratio, EPS, Revenue, and Earnings.
     """
     return analysis.fetch_fundamentals(ticker_id)
+
 
 @mcp.tool()
 def fetch_earnings_dates(ticker_id: str) -> Dict[str, str]:
@@ -94,8 +94,9 @@ def fetch_earnings_dates(ticker_id: str) -> Dict[str, str]:
     """
     return analysis.fetch_earnings_dates(ticker_id)
 
+
 @mcp.tool()
-def fetch_technical_indicators(ticker: str, start: str, end: str) -> Dict[str, float]:
+def fetch_technical_indicators(ticker: str, start: str, end: str) -> Dict[str, str]:
     """Returns an analysis of a ticker.
 
     Parameters:
@@ -105,5 +106,7 @@ def fetch_technical_indicators(ticker: str, start: str, end: str) -> Dict[str, f
     Dict[str, str]: Dictionary with analysis as keys and their titles as values.
     """
     return analysis.fetch_technical_indicators(ticker, start, end)
+
+
 if __name__ == "__main__":
     mcp.run(transport="stdio")

@@ -1,4 +1,4 @@
-from typing import List, Dict
+from typing import List, Dict, Union
 import yfinance as yf
 import pandas as pd
 import requests
@@ -49,14 +49,14 @@ def list_ticker_news(
         return {"error": str(e)}
 
 
-def get_tickers_price(tickers: list[str]) -> Dict[str, float]:
+def get_tickers_price(tickers: list[str]) -> Dict[str, str]:
     try:
         prices = {}
         for ticker in tickers:
             try:
                 stock = yf.Ticker(ticker)
                 price = stock.info["regularMarketPrice"]
-                prices[ticker] = price
+                prices[ticker] = str(price)
             except Exception as e:
                 prices[ticker] = f"Error: {e}"
         return prices
@@ -66,7 +66,7 @@ def get_tickers_price(tickers: list[str]) -> Dict[str, float]:
 
 def get_historical_prices(
     ticker: str, start_date: str, end_date: str, interval: str = "1d"
-) -> List[tuple]:
+) -> Dict[str, Union[tuple, str]]:
     try:
         stock = yf.Ticker(ticker)
         data = stock.history(start=start_date, end=end_date, interval=interval)
@@ -76,8 +76,8 @@ def get_historical_prices(
         data = data.reset_index()
 
         dates = pd.date_range(start=start_date, end=end_date, freq="D")
-        return [
-            (str(date.date()), open_price, high, low, close, volume)
+        return {
+            str(date.date()): (open_price, high, low, close, volume)
             for date, open_price, high, low, close, volume in zip(
                 dates,
                 data["Open"],
@@ -86,7 +86,7 @@ def get_historical_prices(
                 data["Close"],
                 data["Volume"],
             )
-        ]
+        }
 
     except Exception as e:
         return {"error": str(e)}

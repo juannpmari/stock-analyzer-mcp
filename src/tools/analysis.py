@@ -2,7 +2,7 @@ import yfinance as yf
 from typing import Dict
 
 
-def fetch_fundamentals(ticker_id: str) -> Dict[str, float]:
+def fetch_fundamentals(ticker_id: str) -> Dict[str, str]:
     try:
         ticker = yf.Ticker(ticker_id)
         info = ticker.info
@@ -15,7 +15,7 @@ def fetch_fundamentals(ticker_id: str) -> Dict[str, float]:
             "earnings": info.get("grossProfits"),
         }
 
-        return fundamentals_data
+        return {k: str(v) for k, v in fundamentals_data.items()}
 
     except Exception as e:
         return {"error": str(e)}
@@ -39,7 +39,7 @@ def fetch_earnings_dates(ticker_id: str) -> dict:
         return {"error": str(e)}
 
 
-def fetch_technical_indicators(ticker: str, start: str, end: str) -> Dict[str, float]:
+def fetch_technical_indicators(ticker: str, start: str, end: str) -> Dict[str, str]:
     try:
 
         stock = yf.Ticker(ticker)
@@ -98,7 +98,7 @@ def fetch_technical_indicators(ticker: str, start: str, end: str) -> Dict[str, f
             ]
         ]
 
-        return indicators.dropna().to_dict()
+        return {k: str(v) for k, v in indicators.dropna().to_dict().items()}
 
     except Exception as e:
         return {"error": str(e)}
