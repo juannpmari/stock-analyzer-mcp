@@ -44,7 +44,7 @@ def list_ticker_news(
             news += f" URL: {item['url']} \n"
             news += "--------------------------------\n"
 
-        return news
+        return {"news": news}
     except Exception as e:
         return {"error": str(e)}
 
