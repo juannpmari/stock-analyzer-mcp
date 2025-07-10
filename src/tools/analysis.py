@@ -1,20 +1,8 @@
 import yfinance as yf
 from typing import Dict
-from mcp.server.fastmcp import FastMCP
 
-analysis_mcp = FastMCP("Analysis")
 
-@analysis_mcp.tool
 def fetch_fundamentals(ticker_id: str) -> Dict[str, float]:
-    """
-    Fetches fundamental data for a given ticker.
-
-    Parameters:
-    ticker_id (str): e.g. 'AAPL' or 'GOOG'
-
-    Returns:
-    dict: Dictionary with Market Cap, PE Ratio, EPS, Revenue, and Earnings.
-    """
     try:
         ticker = yf.Ticker(ticker_id)
         info = ticker.info
@@ -24,7 +12,7 @@ def fetch_fundamentals(ticker_id: str) -> Dict[str, float]:
             "pe_ratio": info.get("trailingPE"),
             "eps": info.get("trailingEps"),
             "revenue": info.get("totalRevenue"),
-            "earnings": info.get("grossProfits")
+            "earnings": info.get("grossProfits"),
         }
 
         return fundamentals_data
@@ -32,17 +20,8 @@ def fetch_fundamentals(ticker_id: str) -> Dict[str, float]:
     except Exception as e:
         return {"error": str(e)}
 
-@analysis_mcp.tool
+
 def fetch_earnings_dates(ticker_id: str) -> dict:
-    """
-    Fetches upcoming earnings announcement dates for a given ticker.
-
-    Parameters:
-    ticker_id (str): e.g. 'AAPL' or 'GOOG'
-
-    Returns:
-    dict: Dictionary with earnings dates and related information.
-    """
     try:
         ticker = yf.Ticker(ticker_id)
         calendar = ticker.earnings_dates
@@ -60,21 +39,7 @@ def fetch_earnings_dates(ticker_id: str) -> dict:
         return {"error": str(e)}
 
 
-
-@analysis_mcp.tool
 def fetch_technical_indicators(ticker: str, start: str, end: str) -> Dict[str, float]:
-    """
-    Fetches technical indicators for a ticker using yfinance and pandas.
-
-    Parameters:
-    - ticker (str): e.g., 'AAPL' or 'BTC-USD'
-    - start (str): start date in YYYY-MM-DD
-    - end (str): end date in YYYY-MM-DD
-
-    Returns:
-    - Dictionary with indicators (latest values only)
-
-    """
     try:
 
         stock = yf.Ticker(ticker)
