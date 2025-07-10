@@ -1,6 +1,6 @@
 import yfinance as yf
 from typing import Dict
-from fastmcp import FastMCP
+from mcp.server.fastmcp import FastMCP
 
 analysis_mcp = FastMCP("Analysis")
 

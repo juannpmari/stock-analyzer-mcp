@@ -2,7 +2,7 @@ from typing import List, Dict
 import yfinance as yf
 import pandas as pd
 import requests
-from fastmcp import FastMCP
+from mcp.server.fastmcp import FastMCP
 
 market_data_mcp = FastMCP("Market Data")
 
