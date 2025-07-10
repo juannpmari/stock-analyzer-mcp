@@ -8,6 +8,7 @@ mcp = FastMCP("Market analyzer")
 @mcp.tool()
 def search_stock_tickers(ticker_query: str = "") -> Dict[str, str]:
     """Return up to 20 ticker names related to ticker_query. Use to retrieve tickers names for other resources.
+    
     Parameters:
     ticker_query (str): e.g. 'AAPL' or 'GOOG', 'MSFT'
 
@@ -29,20 +30,20 @@ def list_ticker_news(
     hours_ago (int): number of hours ago to get news from
 
     Returns:
-    Dict[str, str]: Dictionary with news as keys and their titles as values.
+    Dict[str, str]: Dictionary with news content or error message.
     """
     return market_data.list_ticker_news(ticker, n_news, hours_ago)
 
 
 @mcp.tool()
 def get_tickers_price(tickers: list[str]) -> Dict[str, str]:
-    """Returns the price of a list of tickers.
+    """Returns the current price of a list of tickers.
 
     Parameters:
     tickers (list[str]): list of tickers to get price from
 
     Returns:
-    Dict[str, float]: Dictionary with tickers as keys and their prices as values.
+    Dict[str, str]: Dictionary with tickers as keys and their prices as string values.
     """
     return market_data.get_tickers_price(tickers)
 
@@ -52,17 +53,17 @@ def get_historical_prices(
     ticker: str, start_date: str, end_date: str, interval: str = "1d"
 ) -> Dict[str, Union[tuple, str]]:
     """
-    Fetches daily closing prices for a given ticker between start_date and end_date.
+    Fetches historical OHLCV data for a given ticker between start_date and end_date.
 
     Parameters:
-    - ticker (str): e.g. 'AAPL' or 'BTC-USD'
-    - start_date (str): e.g. '2024-01-01'
-    - end_date (str): e.g. '2024-06-01'
-    - interval (str): e.g. '1d', '1h', '1m'
+    ticker (str): e.g. 'AAPL' or 'BTC-USD'
+    start_date (str): e.g. '2024-01-01'
+    end_date (str): e.g. '2024-06-01'
+    interval (str): e.g. '1d', '1h', '1m'
 
     Returns:
-    - List of (date, open, high, low, close, volume) tuples
-    - If the ticker is not found, returns an empty list
+    Dict[str, Union[tuple, str]]: Dictionary with dates as keys and (open, high, low, close, volume) tuples as values.
+                                  If the ticker is not found, returns error dictionary.
     """
     return market_data.get_historical_prices(ticker, start_date, end_date, interval)
 
@@ -76,7 +77,7 @@ def fetch_fundamentals(ticker_id: str) -> Dict[str, str]:
     ticker_id (str): e.g. 'AAPL' or 'GOOG'
 
     Returns:
-    dict: Dictionary with Market Cap, PE Ratio, EPS, Revenue, and Earnings.
+    Dict[str, str]: Dictionary with Market Cap, PE Ratio, EPS, Revenue, and Earnings as string values.
     """
     return analysis.fetch_fundamentals(ticker_id)
 
@@ -90,20 +91,22 @@ def fetch_earnings_dates(ticker_id: str) -> Dict[str, str]:
     ticker_id (str): e.g. 'AAPL' or 'GOOG'
 
     Returns:
-    dict: Dictionary with earnings dates and related information.
+    Dict[str, str]: Dictionary with earnings dates and related information.
     """
     return analysis.fetch_earnings_dates(ticker_id)
 
 
 @mcp.tool()
 def fetch_technical_indicators(ticker: str, start: str, end: str) -> Dict[str, str]:
-    """Returns an analysis of a ticker.
+    """Fetches technical indicators for a ticker using yfinance and pandas.
 
     Parameters:
     ticker (str): e.g. 'AAPL' or 'GOOG'
+    start (str): start date in YYYY-MM-DD format
+    end (str): end date in YYYY-MM-DD format
 
     Returns:
-    Dict[str, str]: Dictionary with analysis as keys and their titles as values.
+    Dict[str, str]: Dictionary with technical indicators (RSI, MACD, Bollinger Bands, SMA, EMA) as string values.
     """
     return analysis.fetch_technical_indicators(ticker, start, end)
 
