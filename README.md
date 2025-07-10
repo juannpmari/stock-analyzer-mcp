@@ -23,3 +23,12 @@ Add the following configuration to mcp_config.json:
       ]
     }
 ```
+
+### Custom agent
+The repository includes a simple custom agent implemented using [Tiny Agents](https://tinyagents.dev/). It uses a Qwen model to answer questions about stock market data.
+To run it in the CLI, use the following commands in a bash terminal:
+```bash
+cd client
+pip install "huggingface_hub[mcp]>=0.32.0"
+tiny-agents run agent.json
+```

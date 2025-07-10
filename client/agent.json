@@ -1,0 +1,15 @@
+{
+	"model": "Qwen/Qwen2.5-72B-Instruct",
+	"provider": "nebius",
+	"servers": [
+		{
+			"type": "stdio",
+			"command": "docker",
+			"args": [
+				"run",
+				"-i",
+				"ghcr.io/juannpmari/stockanalyzermcp"
+			]
+		}
+	]
+}
