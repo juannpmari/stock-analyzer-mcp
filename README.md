@@ -12,9 +12,11 @@ The Stock Analyzer MCP Server is a [Model Context Protocol (MCP)](https://modelc
 ## Usage
 
 ### Windsurf
-Add the following configuration to mcp_config.json:
+Add the following configuration to `mcp_config.json`:
 ```json
-"financial-mcp-server": {
+{
+    "mcpServers": {
+      "financial-mcp-server": {
       "command": "docker",
       "args": [
         "run",
@@ -22,6 +24,28 @@ Add the following configuration to mcp_config.json:
         "ghcr.io/juannpmari/stockanalyzermcp"
       ]
     }
+  }
+}
+```
+
+### Cursor
+
+Navigate to Settings > Cursor Settings > MCP and click "Add new MCP server".
+
+Add the following configuration to `mcp.json`:
+```json
+{
+    "mcpServers": {
+      "financial-mcp-server": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "ghcr.io/juannpmari/stockanalyzermcp"
+      ]
+    }
+  }
+}
 ```
 
 ### Custom agent
