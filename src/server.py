@@ -3,6 +3,7 @@ from mcp.server.fastmcp import FastMCP
 from tools.basic import search_stock_tickers, get_tickers_price, get_historical_prices
 from tools.fundamentals import fundamentals, earnings_dates
 from tools.news import list_ticker_news
+from tools.technical_analysis import get_technical_indicators
 
 mcp = FastMCP("Market analyzer")
 
@@ -12,6 +13,7 @@ mcp.tool()(search_stock_tickers)
 mcp.tool()(get_tickers_price)
 mcp.tool()(get_historical_prices)
 mcp.tool()(list_ticker_news)
+mcp.tool()(get_technical_indicators)
 
 if __name__ == "__main__":
     mcp.run(transport="stdio")
