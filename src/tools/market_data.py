@@ -67,8 +67,6 @@ def get_tickers_price(tickers: list[str]) -> Dict[str, float]:
 def get_historical_prices(
     ticker: str, start_date: str, end_date: str, interval: str = "1d"
 ) -> List[tuple]:
- ticker is not found, returns an empty list
-    """
     try:
         stock = yf.Ticker(ticker)
         data = stock.history(start=start_date, end=end_date, interval=interval)

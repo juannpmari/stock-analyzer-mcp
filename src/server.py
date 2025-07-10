@@ -1,7 +1,7 @@
 from mcp.server.fastmcp import FastMCP
 from typing import Dict
 from tools import market_data, analysis
-
+from typing import List
 mcp = FastMCP("Market analyzer")
 
 
