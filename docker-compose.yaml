@@ -1,8 +1,0 @@
-version: '3'
-
-services:
-  mcpanalyzer:
-    image: mcpcloudanalyzer:latest
-    ports:
-      - "3001:3001"
-      - "6274:6274"
