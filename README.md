@@ -66,15 +66,18 @@ pip install "huggingface_hub[mcp]>=0.32.0"
 tiny-agents run agent.json
 ```
 
-## Available tools
+## Available Tools
 
-- search_stock_tickers: Returns up to 20 ticker names related to ticker_query.
-- list_ticker_news: Returns n_news news about a ticker from the last hours_ago hours.
-- get_tickers_price: Returns the current price of a list of tickers.
-- get_historical_prices: Returns historical (Open, High, Low, Close, Volume) prices for a given ticker between start_date and end_date.
-- fetch_fundamentals: Returns (Market Cap, PE Ratio, EPS, Revenue, Earnings) for a given ticker, used for fundamental analysis.
-- fetch_earnings_dates: Returns upcoming earnings announcement dates for a given ticker, used for fundamental analysis.
-- fetch_technical_indicators: Returns technical indicators (SMA, EMA, RSI, MACD, Bollinger Bands) for a ticker, used for technical analysis.
+| Tool                         | Description                                                                                                   |
+|------------------------------|---------------------------------------------------------------------------------------------------------------|
+| `search_stock_tickers`       | Returns up to 20 ticker names related to a query.                                                             |
+| `list_ticker_news`           | Retrieves recent news about a ticker (customizable count and time window).                                    |
+| `get_tickers_price`          | Returns the current price for one or more tickers.                                                            |
+| `get_historical_prices`      | Provides historical Open, High, Low, Close, and Volume data for a ticker over a specified date range.         |
+| `fetch_fundamentals`         | Returns Market Cap, PE Ratio, EPS, Revenue, and Earnings for a ticker (fundamental analysis).                 |
+| `fetch_earnings_dates`       | Returns upcoming earnings announcement dates for a ticker (fundamental analysis).                             |
+| `fetch_technical_indicators` | Returns technical indicators (SMA, EMA, RSI, MACD, Bollinger Bands) for a ticker (technical analysis).        |
+
 
 
 ## License
