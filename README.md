@@ -1,17 +1,26 @@
 # Stock Analyzer MCP
 
-The Stock Analyzer MCP Server is a [Model Context Protocol (MCP)](https://modelcontextprotocol.io/introduction) server that provides seamless integration with [Yahoo Finance API](https://pypi.org/project/yfinance/), enabling advanced automation and interaction capabilities for developers and tools.
+The Stock Analyzer MCP Server is a [Model Context Protocol (MCP)](https://modelcontextprotocol.io/introduction) server that provides seamless integration with [Yahoo Finance API](https://pypi.org/project/yfinance/) and [TickerTick API](https://github.com/hczhu/TickerTick-API), enabling advanced automation and interaction capabilities for developers and tools.
+
+![Demo](assets/example.gif)
+
 
 ## Use cases
 
-- Automate retrieval of stock market data, including current prices, historical prices, and news.
-- Providing context for stock market price predictions.
-- Building AI powered tools for stock market analysis.
+- Automate retrieval of stock specific data, including current prices and historical prices.
+- Automate retrieval of market fundamentals, including earnings dates and earnings reports for each company.
+- Provide context for stock market price predictions.
+- Build AI-powered tools for stock market analysis.
 
 
-## Usage
+## Local MCP Server
+
+### Prerequisites
+
+The server is designed to be run locally in a container. You will need to have Docker installed and running.
 
 ### Windsurf
+
 Add the following configuration to `mcp_config.json`:
 ```json
 {
@@ -56,3 +65,21 @@ cd client
 pip install "huggingface_hub[mcp]>=0.32.0"
 tiny-agents run agent.json
 ```
+
+## Available Tools
+
+| Tool                         | Description                                                                                                   |
+|------------------------------|---------------------------------------------------------------------------------------------------------------|
+| `search_stock_tickers`       | Returns up to 20 ticker names related to a query.                                                             |
+| `list_ticker_news`           | Retrieves recent news about a ticker (customizable count and time window).                                    |
+| `get_tickers_price`          | Returns the current price for one or more tickers.                                                            |
+| `get_historical_prices`      | Provides historical Open, High, Low, Close, and Volume data for a ticker over a specified date range.         |
+| `fetch_fundamentals`         | Returns Market Cap, PE Ratio, EPS, Revenue, and Earnings for a ticker (fundamental analysis).                 |
+| `fetch_earnings_dates`       | Returns upcoming earnings announcement dates for a ticker (fundamental analysis).                             |
+| `fetch_technical_indicators` | Returns technical indicators (SMA, EMA, RSI, MACD, Bollinger Bands) for a ticker (technical analysis).        |
+
+
+
+## License
+
+This project is licensed under the terms of the MIT open source license. Please refer to the [LICENSE](LICENSE) file for more details.
