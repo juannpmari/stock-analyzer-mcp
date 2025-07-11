@@ -21,7 +21,7 @@ def fetch_fundamentals(ticker_id: str) -> Dict[str, str]:
         return {"error": str(e)}
 
 
-def fetch_earnings_dates(ticker_id: str) -> dict:
+def fetch_earnings_dates(ticker_id: str) -> Dict[str, str]:
     try:
         ticker = yf.Ticker(ticker_id)
         calendar = ticker.earnings_dates
@@ -31,7 +31,7 @@ def fetch_earnings_dates(ticker_id: str) -> dict:
 
         if calendar is not None and not calendar.empty:
             earnings_dict = calendar.to_dict()
-            return earnings_dict
+            return {str(k):str(v) for k,v in earnings_dict.items()}
         else:
             return {"message": "No earnings calendar data available."}
 
